@@ -1,0 +1,33 @@
+---
+# defaults file for workardventure
+git_url: https://github.com/workadventure-xce/workadventure-xce.git
+docker_project: workadventure-xce
+docker_path: /var/docker
+docker_name: clt live
+docker_compose_file: docker-compose.single-domain.yaml 
+
+
+  # variables for workadventure
+jitsi:
+  url: meet.jit.si
+  private_mode: false 
+  iss:
+  secret_key:
+workadventure:
+  debug_mode: false
+  api_token: 1234
+  start_room: "/_/global/maps.workadventure.localhost/starter/map.json"
+  max_group: 4
+  username_length: 8
+  contact_url:
+acme_mail: email@example.com
+op:
+  client:
+    id:
+    secret:
+    issuer:
+    redirect_url:
+  screen:
+    login: "http://pusher.workadventure.localhost/login-screen"
+    profile:
+  disable_anonymous:

@@ -1,0 +1,45 @@
+---
+- name: Install requirements
+  ansible.builtin.apt:
+    name:
+      - git
+    state: present
+
+- name: create docker folder
+  ansible.builtin.file:
+    path: "{{ docker_path }}" 
+    state: directory 
+    owner: "{{ remote_user }}"
+    group: docker
+    mode: 0755 
+
+- name: git repo checkout workadventure
+  ansible.builtin.git:
+    repo: '{{ git_url }}'
+    dest:  "{{ docker_path }}"
+    track_submodules: yes
+  register: output
+
+- name: output of git checkout
+  ansible.builtin.debug:
+    var: output
+
+- name: create .env file
+  ansible.builtin.template:
+    src: env.j2
+    dest: "{{ docker_path }}/{{ docker_project }}/.env"
+    owner: {{ remote_user }} 
+    group: docker 
+    mode: '0755'
+
+
+- name: Create and start services
+    community.docker.docker_compose:
+       project_name: "{{ docker_name }}"
+       project_src: "{{ docker_path }}"
+       files: "{{ docker_compose_file }}"
+    register: output
+
+- name: output of docker_compose
+  ansible.builtin.debug:
+    var: output
