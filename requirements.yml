@@ -1,0 +1,3 @@
+- src: therojam.dockerhost 
+  src: git+https://github.com/TheRojam/ansible-dockerbase.git
+  name: dockerhost 
